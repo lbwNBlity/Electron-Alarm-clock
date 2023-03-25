@@ -86,9 +86,17 @@
     ]
   },
   "eslintConfig": {
-    "extends": "react-app",
-    "env": {
-      "NODE_ENV": "development"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ],
+    "parserOptions": {
+      "babelOptions": {
+        "presets": [
+          ["babel-preset-react-app",false],
+          "babel-preset-react-app/prod"
+        ]
+      }
     }
   },
   "jest": {
