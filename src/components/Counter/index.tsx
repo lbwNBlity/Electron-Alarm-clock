@@ -18,8 +18,7 @@ const Home = ()=>{
         const{ipcRenderer}= (window as any).myApi;
         ipcRenderer.send('showDialog', '456');
     }, []);
-
-    return <div>
+    return <div className="container">
         <Button type="text" onClick={handleBack} shape="circle" icon={<ArrowLeftOutlined />}/>
         <Countdown onFinish={handleFinish} title="Countdown" value={timerValue} format="HH:mm:ss" />
         </div>;
