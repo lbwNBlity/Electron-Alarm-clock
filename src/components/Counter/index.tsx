@@ -1,8 +1,10 @@
 import React, {useCallback} from "react";
 import { useAppSelector } from '@/store/index'
-import {Statistic, Button } from 'antd';
-import {useNavigate} from 'react-router-dom';
-import { ArrowLeftOutlined } from '@ant-design/icons';
+import {Statistic } from 'antd';
+
+import Header from '../Common/Header';
+import styles from './index.less';
+
 
 
 const { Countdown } = Statistic;
@@ -10,17 +12,15 @@ const { Countdown } = Statistic;
 
 const Home = ()=>{
     const timerValue: number = useAppSelector(state => state.timer.timerValue);
-    const navigate = useNavigate();
-    const handleBack = useCallback(()=>{
-        navigate('/');
-    }, [navigate]);
     const handleFinish=useCallback(()=>{
         const{ipcRenderer}= (window as any).myApi;
         ipcRenderer.send('showDialog', '456');
     }, []);
-    return <div className="container">
-        <Button type="text" onClick={handleBack} shape="circle" icon={<ArrowLeftOutlined />}/>
+    return <div className={styles.container}>
+        <Header backPath="/"/>
+        <div className={styles.content}>
         <Countdown onFinish={handleFinish} title="Countdown" value={timerValue} format="HH:mm:ss" />
+        </div>
         </div>;
 };
 

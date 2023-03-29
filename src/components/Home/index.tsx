@@ -10,6 +10,7 @@ import { CaretRightOutlined } from '@ant-design/icons';
 
 import styles from './index.less';
 import { setState } from '@/store/timer';
+import Test from './test';
 
 dayjs.extend(customParseFormat);
 
@@ -25,7 +26,9 @@ const Home: React.FC = () => {
         navigate('/2')
     }, [timerValue, dispatch, navigate]);
     return <div className={styles.container}>
-        <div>
+        <Test>
+            <div style={{width: '10px'}}>45645612512</div>
+</Test>        
         <TimePicker onChange={onChange} showNow={false} defaultValue={dayjs()} />
         <Button
             onClick={handleStartCounter}
@@ -36,7 +39,6 @@ const Home: React.FC = () => {
             disabled={timerValue<dayjs().valueOf()}
         />
         </div>
-    </div>;
 };
 
 export default Home;

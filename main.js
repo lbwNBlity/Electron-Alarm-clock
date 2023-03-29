@@ -1,7 +1,25 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path')
 
+const createToolBar = ()=>{
+  let toolbarWin;
+  return ()=>{
+    if(!toolbarWin || (toolbarWin&&toolbarWin.isDestroyed())){
+      toolbarWin = new BrowserWindow({
+        width: 100,
+        height: 100,
+        type: 'toolbar',
+        alwaysOnTop: true,
+        // transparent: true,  //设置透明
+        frame: false,
+      })
+    }
+    return toolbarWin;
+  };
+};
+
 const createWindow = () => {
+    const getToolBar = createToolBar();
     const win = new BrowserWindow({
       width: 800,
       height: 600,
@@ -16,6 +34,13 @@ const createWindow = () => {
       dialog.showMessageBox({
         message,
       });
+    });
+    win.on('minimize', ()=>{
+      const toolbarWin = getToolBar()
+      toolbarWin.loadURL('http://localhost:3000/toolbar.html/');
+    });
+    win.on('restore', ()=>{
+      getToolBar().destroy();
     });
     return win;
 }
